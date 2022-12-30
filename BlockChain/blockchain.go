@@ -113,6 +113,14 @@ func (blockChain *Chain) PrintChain() {
 + ---------------------------------------------------------------- +	
   `
   for i := 0; i < len(blockChain.chain); i++ {
-    fmt.Printf(template, GetBlockID(&blockChain.chain[i]), blockChain.chain[i].Header.Index,  blockChain.chain[i].Header.TimeStamp, blockChain.chain[i].Header.Nonce, blockChain.chain[i].Header.MerkleRoot, len(blockChain.chain[i].Txs), blockChain.chain[i].Header.PreviousHash)
+    fmt.Printf(
+    	template,
+    	GetBlockID(&blockChain.chain[i]),
+    	blockChain.chain[i].Header.Index,
+    	blockChain.chain[i].Header.TimeStamp, 
+    	blockChain.chain[i].Header.Nonce,
+    	blockChain.chain[i].Header.MerkleRoot, 
+    	len(blockChain.chain[i].Txs),
+    	blockChain.chain[i].Header.PreviousHash)
   }
 }
