@@ -12,7 +12,7 @@ const DIFFICULTY = 5
 
 type Chain struct {
   chain   []Block
-  MenPoll []Transaction
+  MenPoll []Tx
 }
 
 //Construtor 
@@ -22,7 +22,8 @@ func New() (*Chain, *Block) {
  
   blockChain.chain = []Block{}
   genesis := blockChain.createGenesisBlock()
-  
+  blockChain.MenPoll = []Tx{}
+
   return blockChain, genesis 
 }
 
@@ -74,7 +75,7 @@ func isValidProof(block *Block, nonce *int32) bool {
 
   if(strings.HasPrefix(encodedStrHash, prefix)) {
     return true
-  }else{
+  }else {
     *nonce++
     return isValidProof(block, nonce)
   }
@@ -85,7 +86,7 @@ func (blockChain *Chain) MineProofOfWork(block *Block) int32 {
   nonce := int32(0)
 
   if(isValidProof(block, &nonce)){
-    blockChain.chain = append(blockChain.chain, *block)
+   blockChain.chain = append(blockChain.chain, *block)
     return nonce
   }else {
     return nonce
@@ -112,6 +113,6 @@ func (blockChain *Chain) PrintChain() {
 + ---------------------------------------------------------------- +	
   `
   for i := 0; i < len(blockChain.chain); i++ {
-    fmt.Printf(template, GetBlockID(&blockChain.chain[i]), blockChain.chain[i].Header.Index,  blockChain.chain[i].Header.TimeStamp, blockChain.chain[i].Header.Nonce, blockChain.chain[i].Header.MerkleRoot, len(blockChain.chain[i].TransActions), blockChain.chain[i].Header.PreviousHash)
+    fmt.Printf(template, GetBlockID(&blockChain.chain[i]), blockChain.chain[i].Header.Index,  blockChain.chain[i].Header.TimeStamp, blockChain.chain[i].Header.Nonce, blockChain.chain[i].Header.MerkleRoot, len(blockChain.chain[i].Txs), blockChain.chain[i].Header.PreviousHash)
   }
 }
